@@ -76,7 +76,7 @@ function HomeContent({ color, navigate }) {
           Get In Touch
         </button>
         <a
-          href="https://drive.google.com/file/d/1Cn_a86TjdqfaQLHMjLN3qen_t0y2pS21/view"
+          href="https://drive.google.com/file/d/1ysj3l8xNOufZDf9ZeeQJiGZHrhYqdk2p/view?usp=sharing"
           target="_blank" rel="noopener noreferrer"
           className="mission-secondary"
           style={{ border: `1px solid ${color}40`, background: `${color}08` }}
@@ -356,8 +356,8 @@ const CONTACT_LINKS = [
   },
   {
     icon: FileText, label: 'Resume',
-    value: 'View on Drive', copyValue: 'https://drive.google.com/file/d/1Cn_a86TjdqfaQLHMjLN3qen_t0y2pS21/view',
-    href: 'https://drive.google.com/file/d/1Cn_a86TjdqfaQLHMjLN3qen_t0y2pS21/view',
+    value: 'View on Drive', copyValue: 'https://drive.google.com/file/d/1ysj3l8xNOufZDf9ZeeQJiGZHrhYqdk2p/view?usp=sharing',
+    href: 'https://drive.google.com/file/d/1ysj3l8xNOufZDf9ZeeQJiGZHrhYqdk2p/view?usp=sharing',
     color: '#ffd700',
   },
 ]

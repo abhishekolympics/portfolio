@@ -58,7 +58,7 @@ function HomeContent({ navigate }) {
           Get In Touch
         </button>
         <a
-          href="https://drive.google.com/file/d/1Cn_a86TjdqfaQLHMjLN3qen_t0y2pS21/view"
+          href="https://drive.google.com/file/d/1ysj3l8xNOufZDf9ZeeQJiGZHrhYqdk2p/view?usp=sharing"
           target="_blank" rel="noopener noreferrer"
           className="px-6 py-2.5 rounded-xl font-semibold text-white border border-white/20 hover:border-white/40 text-sm hover:scale-105 transition-all glass"
         >
@@ -309,7 +309,7 @@ const contactLinks = [
   { icon: Phone,    label: 'Phone',    value: '+91 6394875951',                                  href: 'tel:+916394875951',                                                       color: '#00f0ff' },
   { icon: Github,   label: 'GitHub',   value: 'github.com/abhishekolympics',                     href: 'https://www.github.com/abhishekolympics',                                  color: '#e2e8f0' },
   { icon: Linkedin, label: 'LinkedIn', value: 'linkedin.com/in/abhishekolympics',                href: 'https://www.linkedin.com/in/abhishekolympics/',                             color: '#0a66c2' },
-  { icon: FileText, label: 'Resume',   value: 'Google Drive',                                    href: 'https://drive.google.com/file/d/1Cn_a86TjdqfaQLHMjLN3qen_t0y2pS21/view', color: '#ffd700' },
+  { icon: FileText, label: 'Resume',   value: 'Google Drive',                                    href: 'https://drive.google.com/file/d/1ysj3l8xNOufZDf9ZeeQJiGZHrhYqdk2p/view?usp=sharing', color: '#ffd700' },
 ]
 
 function ContactContent() {
