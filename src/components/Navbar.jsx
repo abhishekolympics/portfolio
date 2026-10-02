@@ -63,7 +63,7 @@ export default function Navbar({ currentSection, onNavigate }) {
 
         {/* Resume CTA */}
         <a
-          href="https://drive.google.com/file/d/1ysj3l8xNOufZDf9ZeeQJiGZHrhYqdk2p/view?usp=sharing"
+          href="https://bit.ly/4dkh0MP"
           target="_blank"
           rel="noopener noreferrer"
           className="hidden md:flex items-center gap-2 px-3 md:px-4 py-1 md:py-1.5 rounded-lg border text-xs md:text-sm font-medium transition-all duration-200"
@@ -101,7 +101,7 @@ export default function Navbar({ currentSection, onNavigate }) {
               ))}
               <li>
                 <a
-                  href="https://drive.google.com/file/d/1ysj3l8xNOufZDf9ZeeQJiGZHrhYqdk2p/view?usp=sharing"
+                  href="https://bit.ly/4dkh0MP"
                   target="_blank" rel="noopener noreferrer"
                   className="inline-flex text-xs md:text-sm px-3 md:px-4 py-2 rounded-lg border border-white/20 text-gray-300"
                 >

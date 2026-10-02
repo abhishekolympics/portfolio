@@ -5,7 +5,7 @@ import { Briefcase, Calendar } from 'lucide-react'
 const experiences = [
   {
     company: 'Transfi',
-    role: 'Senior Software Engineer (Full Stack)',
+    role: 'Senior Software Engineer',
     period: 'Nov 2024 – Jan 2026',
     type: 'Remote',
     color: '#00f0ff',
@@ -21,7 +21,7 @@ const experiences = [
   },
   {
     company: 'Sifars',
-    role: 'Associate Software Engineer (Full Stack)',
+    role: 'Associate Software Engineer',
     period: 'June 2023 – July 2024',
     type: 'Remote',
     color: '#915eff',

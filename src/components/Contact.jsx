@@ -92,8 +92,8 @@ export default function Contact() {
     {
       icon: FileText,
       label: 'Resume',
-      value: 'View on Google Drive',
-      href: 'https://drive.google.com/file/d/1ysj3l8xNOufZDf9ZeeQJiGZHrhYqdk2p/view?usp=sharing',
+      value: 'View resume',
+      href: 'https://bit.ly/4dkh0MP',
       color: '#ffd700',
       desc: 'Download my full resume',
     },
