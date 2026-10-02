@@ -153,10 +153,10 @@ function AboutContent({ color }) {
 
 const SKILL_GROUPS = [
   { cat: 'Languages',     color: '#00ff87', skills: ['TypeScript', 'JavaScript'] },
-  { cat: 'Frontend',      color: '#915eff', skills: ['React', 'TypeScript', 'AgGrid'] },
   { cat: 'Backend',       color: '#00f0ff', skills: ['Node.js', 'NestJS', 'Express'] },
+  { cat: 'Frontend',      color: '#915eff', skills: ['React', 'AgGrid'] },
   { cat: 'APIs',          color: '#6bd8ff', skills: ['REST', 'GraphQL', 'Webhooks'] },
-  { cat: 'Databases',     color: '#ff6b9d', skills: ['MongoDB', 'SQL', 'Redis', 'PostgreSQL'] },
+  { cat: 'Databases',     color: '#ff6b9d', skills: ['MongoDB', 'PostgreSQL', 'Redis'] },
   { cat: 'Cloud',         color: '#ffd700', skills: ['AWS', 'Azure'] },
   { cat: 'AWS',           color: '#ff9a5f', skills: ['Lambda', 'EventBridge', 'SQS', 'S3', 'Cognito'] },
   { cat: 'Delivery',      color: '#c084fc', skills: ['Docker', 'GitHub Actions', 'CI/CD'] },
@@ -529,14 +529,25 @@ export default function SectionOverlay({ current, navigate, onLaunchGame }) {
           width: min(48%, 660px);
           display: flex;
           flex-direction: column;
-          justify-content: center;
           z-index: 20;
           pointer-events: auto;
           background: var(--panel-grad);
+          /* content taller than the screen scrolls instead of being clipped top and bottom */
+          overflow-y: auto;
+          overscroll-behavior: contain;
+          scrollbar-width: thin;
+          scrollbar-color: color-mix(in srgb, var(--section-color, #6bd8ff) 40%, transparent) transparent;
+        }
+        .overlay-panel::-webkit-scrollbar { width: 4px; }
+        .overlay-panel::-webkit-scrollbar-thumb {
+          background: color-mix(in srgb, var(--section-color, #6bd8ff) 40%, transparent);
+          border-radius: 999px;
         }
         .overlay-panel.left  { left: 0; }
         .overlay-panel.right { right: 0; }
         .panel-inner {
+          /* auto margins centre it when it fits and collapse to 0 when it overflows (no clipped top) */
+          margin-block: auto;
           padding: 5.25rem 3.1rem 3rem;
         }
         .overlay-panel.left  .panel-inner { padding-right: 4.2rem; }
@@ -966,7 +977,7 @@ export default function SectionOverlay({ current, navigate, onLaunchGame }) {
             width: 100% !important;
             /* 54dvh leaves the top 46% clean for the planet */
             height: 54dvh; height: 54vh;
-            justify-content: flex-start;
+            overflow: hidden;
             z-index: 30;
             /* ── Frosted glass card ──────────────────────────── */
             background: rgba(3,6,20,0.82) !important;
@@ -993,13 +1004,18 @@ export default function SectionOverlay({ current, navigate, onLaunchGame }) {
             z-index: 2;
           }
           .panel-inner {
+            margin-block: 0;
             padding: 0.9rem 1.1rem !important;
             padding-bottom: max(1.2rem, env(safe-area-inset-bottom)) !important;
             overflow-y: auto;
+            overscroll-behavior: contain;
             -webkit-overflow-scrolling: touch;
             height: 100%;
             scrollbar-width: thin;
             scrollbar-color: rgba(107,216,255,0.3) transparent;
+            /* soft fade at the bottom edge hints that the card scrolls */
+            -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 1.5rem), transparent);
+            mask-image: linear-gradient(to bottom, #000 calc(100% - 1.5rem), transparent);
           }
           .panel-inner::-webkit-scrollbar { width: 3px; }
           .panel-inner::-webkit-scrollbar-track { background: transparent; }
@@ -1025,8 +1041,12 @@ export default function SectionOverlay({ current, navigate, onLaunchGame }) {
           .mission-skill-cat { font-size: 0.66rem; }
           .mission-skill-chip { font-size: 0.82rem; padding: 0.2rem 0.4rem; }
           .mission-skill-tab { font-size: 0.6rem; padding: 0.38rem 0.6rem; }
-          .mission-skill-grid.two-col { grid-template-columns: 1fr; gap: 0.45rem; }
-          .mission-skill-row.stacked { grid-template-columns: 5.8rem 1fr; gap: 0.38rem; padding: 0.52rem 0.62rem; }
+          /* Tech Stack keeps two columns (label above chips): half the height of one row per group */
+          .mission-skill-grid.two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.4rem; }
+          .mission-skill-row.stacked { grid-template-columns: 1fr; gap: 0.28rem; padding: 0.45rem 0.5rem; }
+          .mission-skill-row.stacked .mission-skill-cat { font-size: 0.58rem; }
+          .mission-skill-row.stacked .flex { gap: 0.28rem; }
+          .mission-skill-row.stacked .mission-skill-chip { font-size: 0.78rem; padding: 0.2rem 0.36rem; }
           .mission-card     { padding: 0.72rem; }
           .mission-card-title { font-size: 0.92rem; }
           .mission-bullets  { gap: 0.38rem; margin-top: 0.48rem; }
@@ -1090,7 +1110,7 @@ export default function SectionOverlay({ current, navigate, onLaunchGame }) {
             left: auto !important; right: auto !important;
             width: min(44%, 360px) !important;
             height: 100% !important;
-            justify-content: center !important;
+            overflow: hidden !important;
             border-radius: 0 !important;
             border-top: none !important;
             /* Side glass panel */
@@ -1109,8 +1129,10 @@ export default function SectionOverlay({ current, navigate, onLaunchGame }) {
             border-left: 1px solid color-mix(in srgb, var(--section-color, #6bd8ff) 25%, transparent);
           }
           .panel-inner {
+            margin-block: 0;
             padding: 3.8rem 1.3rem 1.2rem !important;
             overflow-y: auto !important;
+            overscroll-behavior: contain;
             -webkit-overflow-scrolling: touch;
             height: 100% !important;
           }
@@ -1134,6 +1156,36 @@ export default function SectionOverlay({ current, navigate, onLaunchGame }) {
           .overlay-panel.left  .panel-inner { padding-right: 3rem; }
           .overlay-panel.right .panel-inner { padding-left:  3rem; }
           .mission-headline { font-size: clamp(1.9rem, 3.2vw, 3.2rem); }
+        }
+
+        /* ── Short desktop screens (laptops, zoomed browsers) ─────── */
+        /* Tighten spacing so the tallest panels fit; anything left over scrolls */
+        @media (min-width: 769px) and (max-height: 820px) {
+          .panel-inner { padding-top: 4.4rem; padding-bottom: 1.6rem; }
+          .mission-stack { gap: 0.8rem; }
+          .mission-title { font-size: clamp(1.6rem, 2.4vw, 2.4rem); }
+          .mission-headline { font-size: clamp(2rem, 3.3vw, 3.4rem); }
+          .mission-copy { font-size: clamp(0.95rem, 1.15vw, 1.08rem); line-height: 1.45; }
+          .mission-copy.strong { font-size: clamp(1rem, 1.25vw, 1.15rem); }
+          .mission-skill-grid { gap: 0.5rem; }
+          .mission-skill-grid.two-col { gap: 0.45rem; }
+          .mission-skill-row { padding: 0.55rem 0.75rem; gap: 0.7rem; }
+          .mission-skill-row.stacked { padding: 0.42rem 0.6rem; gap: 0.3rem; }
+          .mission-skill-chip { font-size: 0.88rem; padding: 0.26rem 0.5rem; }
+          .mission-card { padding: 0.9rem 1rem; }
+          .mission-exp-scroll { gap: 0.75rem; }
+          .mission-bullets { gap: 0.38rem; margin-top: 0.5rem; }
+          .mission-bullets li { font-size: clamp(0.88rem, 1vw, 0.98rem); line-height: 1.35; }
+          .mission-stat { padding: 0.7rem 0.5rem; }
+          .mission-achievement { padding: 0.65rem; }
+          .mission-contact-row { padding-top: 0.55rem; padding-bottom: 0.55rem; }
+        }
+        @media (min-width: 769px) and (max-height: 660px) {
+          .panel-inner { padding-top: 3.9rem; padding-bottom: 1.2rem; }
+          .mission-stack { gap: 0.6rem; }
+          .mission-header { gap: 0.2rem; }
+          .mission-copy { font-size: 0.92rem; }
+          .mission-bullets li { font-size: 0.88rem; }
         }
       `}</style>
 
