@@ -152,30 +152,68 @@ function AboutContent({ color }) {
 // ── Skills ─────────────────────────────────────────────────────────────────────
 
 const SKILL_GROUPS = [
-  { cat: 'Backend',   color: '#00f0ff', skills: ['Node.js', 'Express', 'NestJS', 'REST', 'GraphQL'] },
-  { cat: 'Frontend',  color: '#915eff', skills: ['React', 'TypeScript', 'Gatsby', 'Tailwind'] },
-  { cat: 'Databases', color: '#ff6b9d', skills: ['MongoDB', 'SQL', 'Redis'] },
-  { cat: 'Cloud',     color: '#ffd700', skills: ['AWS Lambda', 'EventBridge', 'Docker', 'CI/CD'] },
-  { cat: 'Languages', color: '#00ff87', skills: ['JavaScript', 'TypeScript', 'C++'] },
-  { cat: 'AI Tools',  color: '#ff8c00', skills: ['Claude Code', 'Cursor', 'Codex'] },
+  { cat: 'Languages',     color: '#00ff87', skills: ['TypeScript', 'JavaScript'] },
+  { cat: 'Frontend',      color: '#915eff', skills: ['React', 'TypeScript', 'AgGrid'] },
+  { cat: 'Backend',       color: '#00f0ff', skills: ['Node.js', 'NestJS', 'Express'] },
+  { cat: 'APIs',          color: '#6bd8ff', skills: ['REST', 'GraphQL', 'Webhooks'] },
+  { cat: 'Databases',     color: '#ff6b9d', skills: ['MongoDB', 'SQL', 'Redis', 'PostgreSQL'] },
+  { cat: 'Cloud',         color: '#ffd700', skills: ['AWS', 'Azure'] },
+  { cat: 'AWS',           color: '#ff9a5f', skills: ['Lambda', 'EventBridge', 'SQS', 'S3', 'Cognito'] },
+  { cat: 'Delivery',      color: '#c084fc', skills: ['Docker', 'GitHub Actions', 'CI/CD'] },
+  { cat: 'Observability', color: '#4ade80', skills: ['Datadog', 'AWS CloudWatch'] },
+  { cat: 'AI',            color: '#ff8c00', skills: ['LLM integrations', 'Agentic workflows'] },
+]
+
+const DESIGN_GROUPS = [
+  { cat: 'Architecture', color: '#00f0ff', skills: ['Event-driven microservices', 'Webhooks', 'Scheduled / cron jobs'] },
+  { cat: 'Messaging',    color: '#915eff', skills: ['Message queues', 'Dead-letter queues'] },
+  { cat: 'Reliability',  color: '#00ff87', skills: ['Retries', 'Duplicate events', 'Partial failures'] },
+  { cat: 'Caching',      color: '#ff6b9d', skills: ['Cache management'] },
+  { cat: 'Integrations', color: '#ffd700', skills: ['Third-party APIs', 'Email / SMS via SendGrid & Twilio'] },
+  { cat: 'Monitoring',   color: '#ff8c00', skills: ['Alerts', 'Datadog monitors', 'CloudWatch alarms'] },
+]
+
+const SKILL_TABS = [
+  { key: 'stack',  label: 'Tech Stack',    groups: SKILL_GROUPS },
+  { key: 'design', label: 'System Design', groups: DESIGN_GROUPS },
 ]
 
 function SkillsContent({ color, onLaunchGame }) {
+  const [tab, setTab] = useState('stack')
+  const groups = SKILL_TABS.find(t => t.key === tab).groups
   return (
     <div className="mission-stack">
       <MissionHeader color={color} code="SYSTEMS MATRIX" title="Tech Arsenal" />
-      <p className="mission-copy">Technologies I work with daily across the full stack.</p>
-      <button
-        className="mission-game-button"
-        style={{ borderColor: `${color}45`, color, boxShadow: `0 0 28px ${color}18` }}
-        onClick={onLaunchGame}
-      >
-        <Gamepad2 size={17} />
-        Launch Asteroid Dodger
-      </button>
-      <div className="mission-skill-grid">
-        {SKILL_GROUPS.map(g => (
-          <div key={g.cat} className="mission-skill-row" style={{ borderColor: `${g.color}22`, background: `${g.color}08` }}>
+      <p className="mission-copy">What I build with, and how I design it to hold up in production.</p>
+      <div className="mission-skill-bar">
+        <div className="mission-skill-tabs" role="tablist">
+          {SKILL_TABS.map(t => (
+            <button
+              key={t.key}
+              role="tab"
+              aria-selected={tab === t.key}
+              className="mission-skill-tab"
+              style={tab === t.key
+                ? { borderColor: `${color}70`, color, background: `${color}14`, boxShadow: `0 0 18px ${color}22` }
+                : { borderColor: 'rgba(255,255,255,0.1)', color: 'rgba(203,213,225,0.6)' }}
+              onClick={() => setTab(t.key)}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+        <button
+          className="mission-game-button"
+          style={{ borderColor: `${color}45`, color, boxShadow: `0 0 28px ${color}18` }}
+          onClick={onLaunchGame}
+        >
+          <Gamepad2 size={17} />
+          Launch Asteroid Dodger
+        </button>
+      </div>
+      <div className={`mission-skill-grid${tab === 'stack' ? ' two-col' : ''}`}>
+        {groups.map(g => (
+          <div key={g.cat} className={`mission-skill-row${tab === 'stack' ? ' stacked' : ''}`} style={{ borderColor: `${g.color}22`, background: `${g.color}08` }}>
             <span className="mission-skill-cat" style={{ color: g.color, textShadow: `0 0 14px ${g.color}80` }}>
               {g.cat}
             </span>
@@ -663,6 +701,29 @@ export default function SectionOverlay({ current, navigate, onLaunchGame }) {
           display: grid;
           gap: 0.7rem;
         }
+        .mission-skill-grid.two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.55rem; }
+        .mission-skill-row.stacked { grid-template-columns: 1fr; gap: 0.4rem; padding: 0.5rem 0.65rem; }
+        .mission-skill-row.stacked .mission-skill-cat { font-size: 0.68rem; padding-top: 0; }
+        .mission-skill-row.stacked .flex { gap: 0.35rem; }
+        .mission-skill-row.stacked .mission-skill-chip { font-size: 0.86rem; padding: 0.24rem 0.45rem; }
+        .mission-skill-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem; }
+        .mission-skill-bar .mission-game-button { font-size: 0.66rem; padding: 0.45rem 0.7rem; border-radius: 0.75rem; gap: 0.4rem; }
+        .mission-skill-tabs {
+          display: flex;
+          gap: 0.5rem;
+        }
+        .mission-skill-tab {
+          border: 1px solid;
+          border-radius: 0.75rem;
+          padding: 0.45rem 0.8rem;
+          background: rgba(3,6,20,0.45);
+          font-family: "Orbitron", monospace;
+          font-size: 0.68rem;
+          font-weight: 900;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          transition: color 160ms ease, background 160ms ease, border-color 160ms ease;
+        }
         .mission-exp-scroll {
           display: grid;
           gap: 1.1rem;
@@ -963,6 +1024,9 @@ export default function SectionOverlay({ current, navigate, onLaunchGame }) {
           .mission-skill-row { grid-template-columns: 5.8rem 1fr; gap: 0.38rem; padding: 0.52rem 0.62rem; }
           .mission-skill-cat { font-size: 0.66rem; }
           .mission-skill-chip { font-size: 0.82rem; padding: 0.2rem 0.4rem; }
+          .mission-skill-tab { font-size: 0.6rem; padding: 0.38rem 0.6rem; }
+          .mission-skill-grid.two-col { grid-template-columns: 1fr; gap: 0.45rem; }
+          .mission-skill-row.stacked { grid-template-columns: 5.8rem 1fr; gap: 0.38rem; padding: 0.52rem 0.62rem; }
           .mission-card     { padding: 0.72rem; }
           .mission-card-title { font-size: 0.92rem; }
           .mission-bullets  { gap: 0.38rem; margin-top: 0.48rem; }
